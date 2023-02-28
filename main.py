@@ -1,3 +1,4 @@
+import os
 from tkinter import *
 from tkinter import messagebox
 from tkinter.filedialog import askopenfile, asksaveasfile
@@ -30,11 +31,20 @@ def save_as():
         messagebox.showerror("Неизвестная ошибка. Невозможно сохранить файл.")
 
 
-#def open_catalog:
+def tek_catalog():
+    All_catalogs = os.getcwd()
+    print('Текущий каталог = '+All_catalogs)
 
 
+def open_catalog():
+    Out_files_in_catalogs =os.getcwd()
+#    print('Файлы в каталоге = '+str(Out_files_in_catalogs))
 
-
+    result = os.walk(Out_files_in_catalogs)
+    for i, j, k in result:
+        for file in k:
+    #        print(file)
+            text.insert(END, "\n"+file)  # вставка в начало
 
 
 root = Tk()
@@ -45,22 +55,30 @@ text = Text(root, width=400, height=400)
 text.pack()
 
 menu_bar = Menu(root)
+
+Otbor_Cataloga = Menu(menu_bar)
 file_menu = Menu(menu_bar)
 file_catalogs = Menu(menu_bar)
 
-file_menu.add_command(label="NewNote", command=new_file)
-file_menu.add_command(label="OpenNote", command=open_file)
-file_menu.add_command(label="SaveAs", command=save_as)
+Otbor_Cataloga.add_command(label="Получить текущий каталог...",command=tek_catalog )
+menu_bar.add_cascade(label="Каталог", menu=Otbor_Cataloga)
 
+
+file_catalogs.add_command(label="Прочитать содержимое каталога...", command=open_catalog)
+file_catalogs.add_command(label="Удалить заметку...", )
+menu_bar.add_cascade(label="Операции в Каталоге", menu=file_catalogs)
+
+
+file_menu.add_command(label="Создать новую заметку...", command=new_file)
+file_menu.add_command(label="Открыть заметку...", command=open_file)
+file_menu.add_command(label="Записать заметку как...", command=save_as)
+#file_menu.add_command(label="Удалить заметку...", command=remove_zametku)
 menu_bar.add_cascade(label="Файл", menu=file_menu)
 
-# file_catalogs.add_command(label="Прочитать каталог", command=open_catalog)
-file_catalogs.add_command(label="Прочитать каталог", )
-#file_catalogs.add_command(label="Удалить файл", command=save_as)
-file_catalogs.add_command(label="Удалить файл", command=save_as)
 
-menu_bar.add_cascade(label="Каталог", menu=file_catalogs)
+
+
+
 
 root.config(menu=menu_bar)
 root.mainloop()
-
