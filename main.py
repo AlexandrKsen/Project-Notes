@@ -2,6 +2,8 @@ import os
 from tkinter import *
 from tkinter import messagebox
 from tkinter.filedialog import askopenfile, asksaveasfile
+from tkinter import filedialog as fd
+
 
 file_name = NONE
 All_catalogs = ''
@@ -38,13 +40,31 @@ def tek_catalog():
 
 def open_catalog():
     Out_files_in_catalogs =os.getcwd()
-#    print('Файлы в каталоге = '+str(Out_files_in_catalogs))
-
     result = os.walk(Out_files_in_catalogs)
     for i, j, k in result:
         for file in k:
-    #        print(file)
-            text.insert(END, "\n"+file)  # вставка в начало
+
+
+            substring = ".csv"
+            if file.find(substring) != -1:
+                text.insert(END, "\n" + file)
+            else:
+                print
+                "Подстрока не найдена!"
+
+
+
+def remove_zametku():
+    filetypes = (
+        ('text files', '*.csv'),)
+
+    filename = fd.askopenfilename(
+        title='Open a file',
+        initialdir='/',
+        filetypes=filetypes)
+
+    print('выбранный файл = '+filename+' удален !!! ')
+    os.remove(filename)
 
 
 root = Tk()
@@ -65,14 +85,13 @@ menu_bar.add_cascade(label="Каталог", menu=Otbor_Cataloga)
 
 
 file_catalogs.add_command(label="Прочитать содержимое каталога...", command=open_catalog)
-file_catalogs.add_command(label="Удалить заметку...", )
 menu_bar.add_cascade(label="Операции в Каталоге", menu=file_catalogs)
 
 
 file_menu.add_command(label="Создать новую заметку...", command=new_file)
 file_menu.add_command(label="Открыть заметку...", command=open_file)
 file_menu.add_command(label="Записать заметку как...", command=save_as)
-#file_menu.add_command(label="Удалить заметку...", command=remove_zametku)
+file_menu.add_command(label="Удалить заметку...", command=remove_zametku)
 menu_bar.add_cascade(label="Файл", menu=file_menu)
 
 
