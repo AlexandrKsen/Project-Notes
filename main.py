@@ -69,7 +69,7 @@ def remove_note():
 
 root = Tk()
 root.title("Заметки")
-root.geometry("300x50")
+root.geometry("500x300")
 
 text = Text(root, width=500, height=300)
 text.pack()
@@ -79,9 +79,6 @@ menu_bar = Menu(root)
 #Otbor_Cataloga = Menu(menu_bar)
 file_menu = Menu(menu_bar)
 file_catalogs = Menu(menu_bar)
-
-#Otbor_Cataloga.add_command(label="Получить текущий каталог...",command=tek_catalog )
-#menu_bar.add_cascade(label="Каталог", menu=Otbor_Cataloga)
 
 
 file_menu.add_command(label="Создать заметку...", command=new_file)
