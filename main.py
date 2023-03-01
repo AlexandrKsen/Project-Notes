@@ -20,8 +20,8 @@ def open_file():
         return
         file_name = inp.name
     data = inp.read()
-    text.delete('1,0', END)
-    text.insert('1,0', data)
+    text.delete('1.0', END)
+    text.insert('1.0', data)
 
 
 def save_as():
@@ -33,7 +33,7 @@ def save_as():
         messagebox.showerror("Неизвестная ошибка. Невозможно сохранить файл.")
 
 
-def tek_catalog():
+def curent_catalog():
     All_catalogs = os.getcwd()
     print('Текущий каталог = '+All_catalogs)
 
@@ -54,7 +54,7 @@ def open_catalog():
 
 
 
-def remove_zametku():
+def remove_note():
     filetypes = (
         ('text files', '*.csv'),)
 
@@ -63,39 +63,35 @@ def remove_zametku():
         initialdir='/',
         filetypes=filetypes)
 
-    print('выбранный файл = '+filename+' удален !!! ')
+    print('выбранный файл = '+filename+' удален ')
     os.remove(filename)
 
 
 root = Tk()
 root.title("Заметки")
-root.geometry("500x300")
+root.geometry("300x50")
 
-text = Text(root, width=400, height=400)
+text = Text(root, width=500, height=300)
 text.pack()
 
 menu_bar = Menu(root)
 
-Otbor_Cataloga = Menu(menu_bar)
+#Otbor_Cataloga = Menu(menu_bar)
 file_menu = Menu(menu_bar)
 file_catalogs = Menu(menu_bar)
 
-Otbor_Cataloga.add_command(label="Получить текущий каталог...",command=tek_catalog )
-menu_bar.add_cascade(label="Каталог", menu=Otbor_Cataloga)
+#Otbor_Cataloga.add_command(label="Получить текущий каталог...",command=tek_catalog )
+#menu_bar.add_cascade(label="Каталог", menu=Otbor_Cataloga)
 
 
-file_catalogs.add_command(label="Прочитать содержимое каталога...", command=open_catalog)
-menu_bar.add_cascade(label="Операции в Каталоге", menu=file_catalogs)
-
-
-file_menu.add_command(label="Создать новую заметку...", command=new_file)
+file_menu.add_command(label="Создать заметку...", command=new_file)
 file_menu.add_command(label="Открыть заметку...", command=open_file)
-file_menu.add_command(label="Записать заметку как...", command=save_as)
-file_menu.add_command(label="Удалить заметку...", command=remove_zametku)
+file_menu.add_command(label="Сохранить заметку как...", command=save_as)
+file_menu.add_command(label="Удалить заметку...", command=remove_note)
 menu_bar.add_cascade(label="Файл", menu=file_menu)
 
-
-
+file_catalogs.add_command(label="Список заметок...", command=open_catalog)
+menu_bar.add_cascade(label="Каталог", menu=file_catalogs)
 
 
 
